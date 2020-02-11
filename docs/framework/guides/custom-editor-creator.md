@@ -23,7 +23,7 @@ import setDataInElement from '@ckeditor/ckeditor5-utils/src/dom/setdatainelement
 import mix from '@ckeditor/ckeditor5-utils/src/mix';
 
 /**
- * The multi-root editor implementation. It provides an inline editables and a toolbar.
+ * The multi-root editor implementation. It provides inline editables and a single toolbar.
  *
  * Unlike other editors, the toolbar is not rendered automatically and needs to be attached to the DOM manually.
  *
@@ -198,12 +198,11 @@ class MultirootEditorUI extends EditorUI {
 
 		for ( const editable of this.view.editables ) {
 			// The editable UI element in DOM is available for sure only after the editor UI view has been rendered.
-			// But it can be available earlier if a DOM element has been passed to DecoupledEditor.create().
+			// But it can be available earlier if a DOM element has been passed to MultirootEditor.create().
 			const editableElement = editable.element;
 
-			// Register the editable UI view in the editor. A single editor instance can aggregate multiple
-			// editable areas (roots) but the decoupled editor has only one.
-			this._editableElements.set( editable.name, editableElement );
+			// Register each editable UI view in the editor.
+			this.setEditableElement( editable.name, editableElement );
 
 			// Let the global focus tracker know that the editable UI element is focusable and
 			// belongs to the editor. From now on, the focus tracker will sustain the editor focus
@@ -268,7 +267,7 @@ class MultirootEditorUI extends EditorUI {
 	}
 
 	/**
-	 * Initializes the inline editor toolbar and its panel.
+	 * Initializes the editor main toolbar and its panel.
 	 *
 	 * @private
 	 */
@@ -345,7 +344,7 @@ class MultirootEditorUIView extends EditorUIView {
 		super( locale );
 
 		/**
-		 * The main toolbar of the decoupled editor UI.
+		 * The main toolbar of the multi-root editor UI.
 		 *
 		 * @readonly
 		 * @member {module:ui/toolbar/toolbarview~ToolbarView}
@@ -369,13 +368,16 @@ class MultirootEditorUIView extends EditorUIView {
 		}
 
 		// This toolbar may be placed anywhere in the page so things like font size need to be reset in it.
-		// Also because of the above, make sure the toolbar supports rounded corners.
+		// Because of the above, make sure the toolbar supports rounded corners.
+		// Also, make sure the toolbar has the proper dir attribute because its ancestor may not have one
+		// and some toolbar item styles depend on this attribute.
 		Template.extend( this.toolbar.template, {
 			attributes: {
 				class: [
 					'ck-reset_all',
 					'ck-rounded-corners'
-				]
+				],
+				dir: locale.uiLanguageDirection
 			}
 		} );
 	}

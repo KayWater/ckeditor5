@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * @license Copyright (c) 2003-2019, CKSource - Frederico Knabben. All rights reserved.
+ * @license Copyright (c) 2003-2020, CKSource - Frederico Knabben. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -27,7 +27,12 @@ function buildDocs() {
 	if ( skipApi ) {
 		promise = Promise.resolve();
 	} else {
-		promise = buildApiDocs();
+		promise = buildApiDocs()
+			.catch( err => {
+				console.error( err );
+
+				process.exitCode = 1;
+			} );
 	}
 
 	promise

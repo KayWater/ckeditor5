@@ -7,7 +7,6 @@ CKEditor 5 [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?styl
 [![Dependency Status](https://img.shields.io/david/ckeditor/ckeditor5.svg)](https://david-dm.org/ckeditor/ckeditor5)
 [![devDependency Status](https://img.shields.io/david/dev/ckeditor/ckeditor5.svg)](https://david-dm.org/ckeditor/ckeditor5?type=dev)
 
-[![Join the chat at https://gitter.im/ckeditor/ckeditor5](https://badges.gitter.im/ckeditor/ckeditor5.svg)](https://gitter.im/ckeditor/ckeditor5?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Join newsletter](https://img.shields.io/badge/join-newsletter-00cc99.svg)](http://eepurl.com/c3zRPr)
 [![Follow twitter](https://img.shields.io/badge/follow-twitter-00cc99.svg)](https://twitter.com/ckeditor)
 
@@ -17,7 +16,7 @@ A set of ready-to-use rich text editors created with a powerful framework. Made 
 
 ## ⚠ This package does not contain any source code
 
-CKEditor 5 is distributed as [four ready-to-use rich text editor builds](https://ckeditor.com/docs/ckeditor5/latest/builds/guides/overview.html#available-builds) which you can [install from npm](https://ckeditor.com/docs/ckeditor5/latest/builds/guides/integration/installation.html#npm).
+CKEditor 5 is distributed as [several ready-to-use rich text editor builds](https://ckeditor.com/docs/ckeditor5/latest/builds/guides/overview.html#available-builds) which you can [install from npm](https://ckeditor.com/docs/ckeditor5/latest/builds/guides/integration/installation.html#npm).
 
 You can also [customize the existing builds](https://ckeditor.com/docs/ckeditor5/latest/builds/guides/development/custom-builds.html) or build your own editors and features by using the [CKEditor 5 Framework](https://ckeditor.com/docs/ckeditor5/latest/framework/guides/overview.html).
 
@@ -64,7 +63,7 @@ Creating an editor using a CKEditor 5 build is very simple and can be described 
 In your HTML page add an element that CKEditor should replace:
 
 ```html
-<textarea name="content" id="editor"></textarea>
+<div id="editor"></div>
 ```
 
 Load the classic editor build (you can choose between [CDN](https://cdn.ckeditor.com/#ckeditor5), [npm](https://ckeditor.com/docs/ckeditor5/latest/builds/guides/integration/installation.html#npm) and [zip downloads](https://ckeditor.com/docs/ckeditor5/latest/builds/guides/integration/installation.html#zip-download)):
@@ -222,6 +221,18 @@ See CKEditor 5 release blog posts [on the CKEditor blog](https://ckeditor.com/bl
 
 <tr>
 	<td>
+		<a href="https://github.com/ckeditor/ckeditor5-watchdog"><code>@ckeditor/ckeditor5-watchdog</code></a>
+	</td>
+	<td>
+		<a href="https://www.npmjs.com/package/@ckeditor/ckeditor5-watchdog"><img src="https://img.shields.io/npm/v/@ckeditor/ckeditor5-watchdog.svg" alt="@ckeditor/ckeditor5-watchdog npm package badge"></a>
+	</td>
+	<td>
+		The watchdog feature, which keeps CKEditor 5 editors running.
+	</td>
+</tr>
+
+<tr>
+	<td>
 		<a href="https://github.com/ckeditor/ckeditor5-cloud-services"><code>@ckeditor/ckeditor5-cloud-services</code></a>
 	</td>
 	<td>
@@ -229,6 +240,18 @@ See CKEditor 5 release blog posts [on the CKEditor blog](https://ckeditor.com/bl
 	</td>
 	<td>
 		CKEditor 5's Cloud Services integration layer.
+	</td>
+</tr>
+
+<tr>
+	<td>
+		<a href="https://github.com/ckeditor/ckeditor-cloud-services-core"><code>@ckeditor/ckeditor-cloud-services-core</code></a>
+	</td>
+	<td>
+		<a href="https://www.npmjs.com/package/@ckeditor/ckeditor-cloud-services-core"><img src="https://img.shields.io/npm/v/@ckeditor/ckeditor-cloud-services-core.svg" alt="@ckeditor/ckeditor-cloud-services-core npm package badge"></a>
+	</td>
+	<td>
+		CKEditor Cloud Services integration utils.
 	</td>
 </tr>
 
@@ -420,6 +443,18 @@ See CKEditor 5 release blog posts [on the CKEditor blog](https://ckeditor.com/bl
 
 <tr>
 	<td>
+		<a href="https://github.com/ckeditor/ckeditor5-code-block"><code>@ckeditor/ckeditor5-code-block</code></a>
+	</td>
+	<td>
+		<a href="https://www.npmjs.com/package/@ckeditor/ckeditor5-code-block"><img src="https://img.shields.io/npm/v/@ckeditor/ckeditor5-code-block.svg" alt="@ckeditor/ckeditor5-code-block npm package badge"></a>
+	</td>
+	<td>
+		The clipboard integration.
+	</td>
+</tr>
+
+<tr>
+	<td>
 		<a href="https://github.com/ckeditor/ckeditor5-enter"><code>@ckeditor/ckeditor5-enter</code></a>
 	</td>
 	<td>
@@ -480,13 +515,37 @@ See CKEditor 5 release blog posts [on the CKEditor blog](https://ckeditor.com/bl
 
 <tr>
 	<td>
+		<a href="https://github.com/ckeditor/ckeditor5-horizontal-line"><code>@ckeditor/ckeditor5-horizontal-line</code></a>
+	</td>
+	<td>
+		<a href="https://www.npmjs.com/package/@ckeditor/ckeditor5-horizontal-line"><img src="https://img.shields.io/npm/v/@ckeditor/ckeditor5-horizontal-line.svg" alt="@ckeditor/ckeditor5-horizontal-line npm package badge"></a>
+	</td>
+	<td>
+		The horizontal rule feature.
+	</td>
+</tr>
+
+<tr>
+	<td>
 		<a href="https://github.com/ckeditor/ckeditor5-image"><code>@ckeditor/ckeditor5-image</code></a>
 	</td>
 	<td>
 		<a href="https://www.npmjs.com/package/@ckeditor/ckeditor5-image"><img src="https://img.shields.io/npm/v/@ckeditor/ckeditor5-image.svg" alt="@ckeditor/ckeditor5-image npm package badge"></a>
 	</td>
 	<td>
-		The image feature. Supports image styles and captioning.
+		The image feature. Supports image styles, captioning, upload, resizing, and more.
+	</td>
+</tr>
+
+<tr>
+	<td>
+		<a href="https://github.com/ckeditor/ckeditor5-indent"><code>@ckeditor/ckeditor5-indent</code></a>
+	</td>
+	<td>
+		<a href="https://www.npmjs.com/package/@ckeditor/ckeditor5-indent"><img src="https://img.shields.io/npm/v/@ckeditor/ckeditor5-indent.svg" alt="@ckeditor/ckeditor5-indent npm package badge"></a>
+	</td>
+	<td>
+		The indentation (of lists and blocks) feature.
 	</td>
 </tr>
 
@@ -552,6 +611,18 @@ See CKEditor 5 release blog posts [on the CKEditor blog](https://ckeditor.com/bl
 
 <tr>
 	<td>
+		<a href="https://github.com/ckeditor/ckeditor5-page-break"><code>@ckeditor/ckeditor5-page-break</code></a>
+	</td>
+	<td>
+		<a href="https://www.npmjs.com/package/@ckeditor/ckeditor5-page-break"><img src="https://img.shields.io/npm/v/@ckeditor/ckeditor5-page-break.svg" alt="@ckeditor/ckeditor5-page-break npm package badge"></a>
+	</td>
+	<td>
+		The page break feature.
+	</td>
+</tr>
+
+<tr>
+	<td>
 		<a href="https://github.com/ckeditor/ckeditor5-paragraph"><code>@ckeditor/ckeditor5-paragraph</code></a>
 	</td>
 	<td>
@@ -588,13 +659,37 @@ See CKEditor 5 release blog posts [on the CKEditor blog](https://ckeditor.com/bl
 
 <tr>
 	<td>
+		<a href="https://github.com/ckeditor/ckeditor5-restricted-editing"><code>@ckeditor/ckeditor5-restricted-editing</code></a>
+	</td>
+	<td>
+		<a href="https://www.npmjs.com/package/@ckeditor/ckeditor5-restricted-editing"><img src="https://img.shields.io/npm/v/@ckeditor/ckeditor5-restricted-editing.svg" alt="@ckeditor/ckeditor5-restricted-editing npm package badge"></a>
+	</td>
+	<td>
+		The restricted editing feature.
+	</td>
+</tr>
+
+<tr>
+	<td>
+		<a href="https://github.com/ckeditor/ckeditor5-special-characters"><code>@ckeditor/ckeditor5-special-characters</code></a>
+	</td>
+	<td>
+		<a href="https://www.npmjs.com/package/@ckeditor/ckeditor5-special-characters"><img src="https://img.shields.io/npm/v/@ckeditor/ckeditor5-special-characters.svg" alt="@ckeditor/ckeditor5-special-characters npm package badge"></a>
+	</td>
+	<td>
+		The special characters feature.
+	</td>
+</tr>
+
+<tr>
+	<td>
 		<a href="https://github.com/ckeditor/ckeditor5-table"><code>@ckeditor/ckeditor5-table</code></a>
 	</td>
 	<td>
 		<a href="https://www.npmjs.com/package/@ckeditor/ckeditor5-table"><img src="https://img.shields.io/npm/v/@ckeditor/ckeditor5-table.svg" alt="@ckeditor/ckeditor5-table npm package badge"></a>
 	</td>
 	<td>
-		The table feature. Work in progress.
+		The table feature.
 	</td>
 </tr>
 
@@ -619,6 +714,18 @@ See CKEditor 5 release blog posts [on the CKEditor blog](https://ckeditor.com/bl
 	</td>
 	<td>
 		The undo feature.
+	</td>
+</tr>
+
+<tr>
+	<td>
+		<a href="https://github.com/ckeditor/ckeditor5-word-count"><code>@ckeditor/ckeditor5-word-count</code></a>
+	</td>
+	<td>
+		<a href="https://www.npmjs.com/package/@ckeditor/ckeditor5-word-count"><img src="https://img.shields.io/npm/v/@ckeditor/ckeditor5-word-count.svg" alt="@ckeditor/ckeditor5-word-count npm package badge"></a>
+	</td>
+	<td>
+		The word count feature.
 	</td>
 </tr>
 

@@ -1,5 +1,5 @@
 /**
- * @license Copyright (c) 2003-2019, CKSource - Frederico Knabben. All rights reserved.
+ * @license Copyright (c) 2003-2020, CKSource - Frederico Knabben. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -12,10 +12,11 @@ const webpack = require( 'webpack' );
 const { bundler, styles } = require( '@ckeditor/ckeditor5-dev-utils' );
 const CKEditorWebpackPlugin = require( '@ckeditor/ckeditor5-dev-webpack-plugin' );
 const MiniCssExtractPlugin = require( 'mini-css-extract-plugin' );
-const UglifyJsWebpackPlugin = require( 'uglifyjs-webpack-plugin' );
+const TerserPlugin = require( 'terser-webpack-plugin' );
 const ProgressBarPlugin = require( 'progress-bar-webpack-plugin' );
 
 const DEFAULT_LANGUAGE = 'en';
+const MULTI_LANGUAGE = 'multi-language';
 
 /**
  * @param {Set.<Snippet>} snippets Snippet collection extracted from documentation files.
@@ -91,6 +92,12 @@ module.exports = function snippetAdapter( snippets, options, umbertoHelpers ) {
 	// Group snippets by language. There is no way to build different languages in a single Webpack process.
 	// Webpack must be called as many times as different languages are being used in snippets.
 	for ( const snippetData of snippets ) {
+		// Multi-languages editors must be built separately.
+		if ( snippetData.snippetConfig.additionalLanguages ) {
+			snippetData.snippetConfig.additionalLanguages.push( snippetData.snippetConfig.language );
+			snippetData.snippetConfig.language = MULTI_LANGUAGE;
+		}
+
 		if ( !groupedSnippetsByLanguage[ snippetData.snippetConfig.language ] ) {
 			groupedSnippetsByLanguage[ snippetData.snippetConfig.language ] = new Set();
 		}
@@ -178,6 +185,13 @@ module.exports = function snippetAdapter( snippets, options, umbertoHelpers ) {
 					if ( wasCSSGenerated ) {
 						cssFiles.unshift( path.join( snippetData.relativeOutputPath, snippetData.snippetName, 'snippet.css' ) );
 					}
+
+					// Additional languages must be imported by the HTML code.
+					if ( snippetData.snippetConfig.additionalLanguages ) {
+						snippetData.snippetConfig.additionalLanguages.forEach( language => {
+							jsFiles.push( path.join( snippetData.relativeOutputPath, 'translations', `${ language }.js` ) );
+						} );
+					}
 				}
 
 				const cssImportsHTML = getHTMLImports( cssFiles, importPath => {
@@ -261,6 +275,27 @@ function getWebpackConfig( snippets, config ) {
 		definitions[ definitionKey ] = JSON.stringify( config.definitions[ definitionKey ] );
 	}
 
+	const ckeditorWebpackPluginOptions = {};
+
+	if ( config.language === MULTI_LANGUAGE ) {
+		const additionalLanguages = new Set();
+
+		// Find all additional languages that must be built.
+		for ( const snippetData of snippets ) {
+			for ( const language of snippetData.snippetConfig.additionalLanguages ) {
+				additionalLanguages.add( language );
+			}
+		}
+
+		// Pass unique values of `additionalLanguages` to `CKEditorWebpackPlugin`.
+		ckeditorWebpackPluginOptions.additionalLanguages = [ ...additionalLanguages ];
+
+		// Also, set the default language because of the warning that comes from the plugin.
+		ckeditorWebpackPluginOptions.language = DEFAULT_LANGUAGE;
+	} else {
+		ckeditorWebpackPluginOptions.language = config.language;
+	}
+
 	const webpackConfig = {
 		mode: config.production ? 'production' : 'development',
 
@@ -274,23 +309,22 @@ function getWebpackConfig( snippets, config ) {
 
 		optimization: {
 			minimizer: [
-				new UglifyJsWebpackPlugin( {
+				new TerserPlugin( {
 					sourceMap: true,
-					uglifyOptions: {
+					terserOptions: {
 						output: {
-							// Preserve license comments starting with an exclamation mark.
+							// Preserve CKEditor 5 license comments.
 							comments: /^!/
 						}
-					}
+					},
+					extractComments: false
 				} )
 			]
 		},
 
 		plugins: [
 			new MiniCssExtractPlugin( { filename: '[name]/snippet.css' } ),
-			new CKEditorWebpackPlugin( {
-				language: config.language
-			} ),
+			new CKEditorWebpackPlugin( ckeditorWebpackPluginOptions ),
 			new webpack.BannerPlugin( {
 				banner: bundler.getLicenseBanner(),
 				raw: true
@@ -451,4 +485,6 @@ function getHTMLImports( files, mapFunction ) {
  * @property {String} [language] A language that will be used for building the editor.
  *
  * @property {Array.<String>} [dependencies] Names of samples that are required to working.
+ *
+ * @property {Array.<String>} [additionalLanguages] Additional languages that are required by the snippet.
  */
